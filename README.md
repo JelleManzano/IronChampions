@@ -13,12 +13,10 @@ You have to survive 2 minutes dodging enemies that spawn from both sides of the 
 # Main Functionalities
  
 - List here the main functionalities your game will have
-- Play music with a button that mutes it or unmutes it
-- Startscreen with a Play! Button
+- Startscreen with a Play! Button, based on the hero card
 - Screen where you can select a hero (stage 1 all 3 clicable slides will be the same hero) and start the game
 - Be able to move around the map with WASD or arrow keys (later when you can attack, spacebar = attack)
-- Enemies should spawn randomnly from both sides of the screen and go to the other end. 
-- Bigger enemies that deal more damage should also spawn randomly, every 15 secs.
+- Enemies should spawn randomnly from both sides of the screen and go to the other end.
 - Player always spawn in the center, set speed, hp and can move around the map.
 - Set a numeric HP:Number under player
 - Add a timedown counter startgin at 02:00 minutes going back to 0.
@@ -36,6 +34,7 @@ You have to survive 2 minutes dodging enemies that spawn from both sides of the 
 - Add 1 or 2 more heroes with different abilities and stats(for example a mage that instead of melee attacking shoots a snowflake, a barbarian which is faster and deals more dmg that the regular warrior but has less hp)
 - Play a dying player sound when hp reaches 0 and gameover screen starts.
 - Play a cheerful music when surviving the waves.
+- Play music with a button that mutes it or unmutes it
  
 # Proyect Structure
  

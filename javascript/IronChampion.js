@@ -6,12 +6,12 @@ class Warrior {
     this.y = 340;
     this.w = 80;
     this.h = 80;
-    this.speed = 10;
+    this.speed = 15;
     this.hp = 15;
-    this.bulletControl = this.bulletControl;
+    
   }
 
-  drawWarrior = () => {
+  drawWarrior = () => { 
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   };
 
