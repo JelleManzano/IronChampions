@@ -36,9 +36,8 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-window.addEventListener("keydown", (event) =>{
+window.addEventListener("keydown", (event) => {
   if (event.code === "KeyS" || event.code === "ArrowDown") {
-    gameObJ.warriorObj.moveDown()
+    gameObJ.warriorObj.moveDown();
   }
-})
-
+});

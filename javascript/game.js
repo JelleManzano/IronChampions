@@ -3,11 +3,8 @@ class Game {
     this.fondo = new Image();
     this.fondo.src = "/images/mars.png";
     this.warriorObj = new Warrior();
-    this.enemyLeft = new Enemy(0, "./images/enemy.png");
-    this.enemyRight = new Enemy(canvas.width, "./images/flipped-enemy.png");
     this.frames = 0;
     this.enemyArr = [];
-    this.flippedEnemArr = [];
   }
 
   //Dibujar el fondo
@@ -17,27 +14,34 @@ class Game {
 
   addEnemy = () => {
     this.frames++;
+    if (this.frames % 120 === 0) {
+      let randomNum = Math.random() * 650;
+      let randomYint = Math.floor(randomNum) ;
+      let rightEnemy = new Enemy(canvas.width, randomYint, "right");
+      this.enemyArr.push(rightEnemy);
+    }
     if (this.frames % 180 === 0) {
-      let randomNum = Math.random();
-      let randomYint = Math.floor(randomNum) * 650;
+      let randomNum = Math.random() * 650;
+      let randomYint = Math.floor(randomNum) ;
       let leftEnemy = new Enemy(0, randomYint, "left");
       this.enemyArr.push(leftEnemy);
-
-      let rightEnemy = new Enemy(canvas.width, randomYint, "right")
-      this.enemyArr.push(rightEnemy)
     }
   };
 
   //colision provisional
   enemyPlayerCollision = () => {
-    if (
-      this.warriorObj.x < this.enemyObj.x + this.enemyObj.w &&
-      this.warriorObj.x + this.warriorObj.w > this.enemyObj.x &&
-      this.warriorObj.y < this.enemyObj.y + this.enemyObj.h &&
-      this.warriorObj.h + this.warriorObj.y > this.enemyObj.y
-    ) {
-      console.log("Colision");
-    }
+    this.enemyArr.forEach((eachEnemy) => {
+      if (
+        this.warriorObj.x < eachEnemy.x + eachEnemy.w &&
+        this.warriorObj.x + this.warriorObj.w > eachEnemy.x &&
+        this.warriorObj.y < eachEnemy.y + eachEnemy.h &&
+        this.warriorObj.h + this.warriorObj.y > eachEnemy.y
+      ) {
+        console.log("Colision");
+        this.warriorObj.hp = this.warriorObj.hp - 1;
+      }
+      console.log(this.warriorObj.hp);
+    });
   };
   gameLoop = () => {
     //Limpiar el canvas
@@ -48,6 +52,7 @@ class Game {
       eachEnemy.moveEnemy();
     });
     this.addEnemy();
+    this.enemyPlayerCollision();
 
     //Dibujado de elementos
     this.drawFondo();
@@ -56,6 +61,7 @@ class Game {
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.drawEnemy();
     });
+   
     //Recursion y control
     requestAnimationFrame(this.gameLoop);
   };
