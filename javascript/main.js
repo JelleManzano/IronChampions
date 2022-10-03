@@ -18,7 +18,7 @@ const startGame = () => {
 //Event listeners
 startBtn1.addEventListener("click", startGame);
 
-window.addEventListener("keydown", (event) => {
+/*window.addEventListener("keydown", (event) => {
   if (event.code === "KeyA" || event.code === "ArrowLeft") {
     gameObJ.warriorObj.moveLeft();
   }
@@ -40,4 +40,35 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "KeyS" || event.code === "ArrowDown") {
     gameObJ.warriorObj.moveDown();
   }
+});*/
+
+window.addEventListener("keydown", (event) => {
+  if (event.code === "KeyW") {
+      this.keyPressedW = true;
+  } else if (event.code === "KeyD") {
+      this.keyPressedD = true;
+  } else if (event.code === "KeyS") {
+      this.keyPressedS = true;
+  } else if (event.code === "KeyA") {
+      this.keyPressedA = true;
+  }
+
+  if (this.keyPressedW) gameObJ.warriorObj.moveUp();
+  if (this.keyPressedD) gameObJ.warriorObj.moveRight();
+  if (this.keyPressedS) gameObJ.warriorObj.moveDown();
+  if (this.keyPressedA) gameObJ.warriorObj.moveLeft();
+});
+
+window.addEventListener("keyup", (event) => {
+  console.log(this.keyPressedW);
+  if (event.code === "KeyW") {
+      this.keyPressedW = false;
+  } else if (event.code === "KeyD") {
+      this.keyPressedD = false;
+  } else if (event.code === "KeyS") {
+      this.keyPressedS = false;
+  } else if (event.code === "KeyA") {
+      this.keyPressedA = false;
+  }
+
 });
