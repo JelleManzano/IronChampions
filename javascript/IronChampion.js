@@ -1,5 +1,5 @@
 class Warrior {
-  constructor(bulletController) {
+  constructor() {
     this.img = new Image();
     this.img.src = "/images/Warrior-Champion.png";
     this.x = 640;
@@ -7,8 +7,7 @@ class Warrior {
     this.w = 80;
     this.h = 80;
     this.speed = 10;
-    this.hp = 1;
-    this.bulletController = bulletController
+    this.hp = 15;
   }
 
   drawWarrior = () => {

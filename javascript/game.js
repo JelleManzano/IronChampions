@@ -6,12 +6,23 @@ class Game {
     this.frames = 0;
     this.enemyArr = [];
     this.isGameOver = false;
-    this.bulletObj = new Bullet()
+    this.bulletArr = [];
+    this.timer = 120;
   }
 
   //Dibujar el fondo
   drawFondo = () => {
     ctx.drawImage(this.fondo, 0, 0, canvas.width, canvas.height);
+  };
+
+  calculateTimeLeft = () => {
+    if (this.frames % 60 === 0) {
+      console.log(this.timer);
+      this.timer -= 1;
+    }
+    if(this.timer === 0) {
+      this.isGameOver = true;
+    }
   };
 
   addEnemy = () => {
@@ -42,7 +53,12 @@ class Game {
     ctx.fillText(`HP: ${this.warriorObj.hp}`, 30, 30);
   };
 
-  //colision provisional
+  drawTime = () => {
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText(`Time left : ${this.timer}`, 520, 30)
+  }
+
   enemyPlayerCollision = () => {
     this.enemyArr.forEach((eachEnemy, index) => {
       if (
@@ -56,6 +72,7 @@ class Game {
       }
     });
   };
+
   gameOver = () => {
     //detener juego
     if (this.warriorObj.hp === 0) {
@@ -76,12 +93,15 @@ class Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //Acciones y movimientos
+    this.calculateTimeLeft();
     for (let eachEnemy of this.enemyArr) {
       eachEnemy.moveEnemy(this.enemyArr);
     }
     this.addEnemy();
     this.enemyPlayerCollision();
-    this.gameOver()
+
+    this.gameOver();
+
     //Dibujado de elementos
     this.drawFondo();
     this.warriorObj.drawWarrior();
@@ -89,7 +109,11 @@ class Game {
       eachEnemy.drawEnemy();
     });
     this.drawHP();
-    this.bulletObj.drawBullet()
+    this.drawTime()
+    this.bulletArr.forEach((eachBullet, index) => {
+      eachBullet.bulletCollision(this.bulletArr, index, this.enemyArr);
+      eachBullet.drawBullet();
+    });
     //Recursion y control
     if (this.isGameOver === false) {
       requestAnimationFrame(this.gameLoop);

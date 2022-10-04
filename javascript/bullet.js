@@ -1,42 +1,75 @@
 class Bullet {
-  constructor(xParam, yParam, orientation, warriorObj) {
+  constructor(keyPressedW, keyPressedA, keyPressedS, warriorObj) {
     this.img = new Image();
-    if (orientation === "up") {
-      this.img.src = "/images/bullet-up.png";
-    } else if (orientation === "down") {
-      this.img.src = "/images/bullet-down.png";
-    } else if (orientation === "right") {
-      this.img.src = "/images/bullet-right.png";
-    } else if (orientation === "left") {
-      this.img.src = "/images/bullet-left .png";
-    }
-    
-    this.x = xParam;
-    this.y = yParam;
-    this.w = 50;
-    this.h = 10;
-    this.speed = 20;
-    this.warriorPos = warriorObj
+    this.x = warriorObj.x + warriorObj.w / 2;
+    this.y = warriorObj.y + warriorObj.h / 2;
+    this.speed = 15;
+    this.setOrientation(keyPressedW, keyPressedA, keyPressedS);
   }
 
+  setOrientation = (keyPressedW, keyPressedA, keyPressedS) => {
+    //Si no presionamos nada, la bala ira a la derecha por defecto
+    this.orientation = "right";
+    this.img.src = "/images/bullet-right.png";
+    this.w = 50;
+    this.h = 10;
+    if (keyPressedA) {
+      this.orientation = "left";
+      this.img.src = "/images/bullet-left.png";
+    }
+    if (keyPressedW) {
+      this.orientation = "up";
+      this.img.src = "/images/bullet-up.png";
+      this.w = 10;
+      this.h = 50;
+    }
+    if (keyPressedS) {
+      this.orientation = "down";
+      this.img.src = "/images/bullet-down.png";
+      this.w = 10;
+      this.h = 50;
+    }
+  };
+
   drawBullet = () => {
+    if (this.orientation == "right") {
+      this.x += this.speed;
+    }
+    if (this.orientation == "left") {
+      this.x -= this.speed;
+    }
+    if (this.orientation == "up") {
+      this.y -= this.speed;
+    }
+    if (this.orientation == "down") {
+      this.y += this.speed;
+    }
+
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   };
 
-  moveBullet = (bulletArr) => {
-    if (meMuevo == true) {
-        if (this.warriorPos.x > this.x) {
-          this.x += this.speed;
-        }
-        if (this.warriorPos.x < this.x) {
-          this.x -= this.speed;
-        }
-        if (this.warriorPos.y > this.y) {
-          this.y += this.speed;
-        }
-        if (this.warriorPos.y < this.y) {
-          this.y -= this.speed;
-        }
+  bulletCollision = (bulletArr, index, enemyArr) => {
+    if (
+      this.x > canvas.width ||
+      this.x < 0 ||
+      this.y > canvas.height ||
+      this.y < 0
+    ) {
+      bulletArr.splice(index, 1);
+    }
+    let indexEnemy = 0;
+    for (let eachEnemy of enemyArr) {
+      if (
+        this.x < eachEnemy.x + eachEnemy.w &&
+        this.x + this.w > eachEnemy.x &&
+        this.y < eachEnemy.y + eachEnemy.h &&
+        this.h + this.y > eachEnemy.y
+      ) {
+        eachEnemy.hp = eachEnemy.hp - 1;
+        enemyArr.splice(indexEnemy, 1);
+        bulletArr.splice(index, 1);
       }
-  }
+      indexEnemy++;
+    }
+  };
 }

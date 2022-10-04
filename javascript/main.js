@@ -3,6 +3,8 @@ const canvas = document.querySelector("#my-canvas");
 const startScreen = document.querySelector("#splash-screen");
 const gameOverScreen = document.querySelector("#gameover-screen")
 const startBtn1 = document.querySelector("#start-btn");
+const restartBtn = document.querySelector("#replay-btn")
+const homeBtn = document.querySelector("#home-btn")
 let ctx = canvas.getContext("2d");
 let gameObJ;
 
@@ -16,8 +18,22 @@ const startGame = () => {
   gameObJ.gameLoop();
 };
 
+const resetGame = () => {
+    gameOverScreen.style.display = "none";
+    startGame();
+}
+
+const goHome = () => {
+    gameOverScreen.style.display = "none";
+    startScreen.style.display = "flex";
+}
+
 //Event listeners
 startBtn1.addEventListener("click", startGame);
+
+restartBtn.addEventListener("click", resetGame)
+
+homeBtn.addEventListener("click", goHome)
 
 window.addEventListener("keydown", (event) => {
   if (event.code === "KeyW") {
@@ -30,13 +46,26 @@ window.addEventListener("keydown", (event) => {
     this.keyPressedA = true;
   }
 
-  if (this.keyPressedW) gameObJ.warriorObj.moveUp();
-  if (this.keyPressedD) gameObJ.warriorObj.moveRight();
-  if (this.keyPressedS) gameObJ.warriorObj.moveDown();
-  if (this.keyPressedA) gameObJ.warriorObj.moveLeft();
+  if (this.keyPressedW) {
+    gameObJ.warriorObj.moveUp();
+  }
+  if (this.keyPressedD) {
+    gameObJ.warriorObj.moveRight();
+  }
+  if (this.keyPressedS) {
+    gameObJ.warriorObj.moveDown();
+  }
+  if (this.keyPressedA) {
+    gameObJ.warriorObj.moveLeft();
+  }
+  if (event.code === "Space") {
+    console.log("disparando");
+   gameObJ.bulletArr.push(new Bullet(this.keyPressedW, this.keyPressedA, this.keyPressedS, gameObJ.warriorObj))
+  }
 });
 
 window.addEventListener("keyup", (event) => {
+    event.preventDefault();
   if (event.code === "KeyW") {
     this.keyPressedW = false;
   } else if (event.code === "KeyD") {
