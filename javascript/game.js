@@ -27,7 +27,7 @@ class Game {
 
   addEnemy = () => {
     this.frames++;
-    if (this.frames % 240 === 0) {
+    if (this.frames % 120 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightEnemy = new Enemy(
@@ -38,7 +38,7 @@ class Game {
       );
       this.enemyArr.push(rightEnemy);
     } 
-    if (this.frames % 240 === 0) {
+    if (this.frames % 120 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let leftEnemy = new Enemy(0, randomYint, "left", this.warriorObj);

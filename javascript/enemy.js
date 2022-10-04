@@ -11,7 +11,7 @@ class Enemy {
     this.y = yParam;
     this.w = 60;
     this.h = 60;
-    this.speed = 0.4;
+    this.speed = 0.7;
     this.hp = 1;
     this.warriorPos = warriorObj;
   }
