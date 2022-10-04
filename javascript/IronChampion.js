@@ -8,7 +8,6 @@ class Warrior {
     this.h = 80;
     this.speed = 15;
     this.hp = 15;
-    
   }
 
   drawWarrior = () => { 
@@ -16,18 +15,30 @@ class Warrior {
   };
 
   moveLeft = () => {
-    this.x = this.x - this.speed;
+    this.x -= this.speed
+    if(this.x + this.h < 70) {
+      this.x = 0
+    }
   };
 
   moveRight = () => {
-    this.x = this.x + this.speed;
+    this.x += this.speed;
+    if(this.x + this.h > canvas.width) {
+      this.x = 1200
+    }
   };
 
   moveUp = () => {
-    this.y = this.y - this.speed;
+    this.y -= this.speed;
+    if(this.y + this.h < 70) {
+      this.y = 0
+    }
   };
 
   moveDown = () => {
-    this.y = this.y + this.speed;
+    this.y += this.speed;
+    if(this.y + this.h >= 720) {
+      this.y = 630
+    }
   };
 }

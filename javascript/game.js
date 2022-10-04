@@ -5,6 +5,7 @@ class Game {
     this.warriorObj = new Warrior();
     this.frames = 0;
     this.enemyArr = [];
+    this.isGameOver = false;
   }
 
   //Dibujar el fondo
@@ -43,6 +44,12 @@ class Game {
     console.log("eliminado");
   };
 
+  drawHP = () => {
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "red"
+    ctx.fillText(`HP: ${this.warriorObj.hp}`, 30, 30);
+  };
+
   //colision provisional
   enemyPlayerCollision = () => {
     this.enemyArr.forEach((eachEnemy, index) => {
@@ -55,6 +62,9 @@ class Game {
         this.warriorObj.hp = this.warriorObj.hp - 1;
         this.enemyArr.splice(index, 1);
       }
+      if(this.warriorObj.hp === 0) {
+        this.isGameOver = true;
+      }
     });
   };
   gameLoop = () => {
@@ -62,9 +72,6 @@ class Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //Acciones y movimientos
-    /*this.enemyArr.forEach((eachEnemy) => {
-      eachEnemy.moveEnemy();
-    });*/
     for (let eachEnemy of this.enemyArr) {
       eachEnemy.moveEnemy(this.enemyArr);
     }
@@ -74,12 +81,13 @@ class Game {
     //Dibujado de elementos
     this.drawFondo();
     this.warriorObj.drawWarrior();
-
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.drawEnemy();
     });
-
+    this.drawHP();
     //Recursion y control
-    requestAnimationFrame(this.gameLoop);
+    if(this.isGameOver === false) {
+      requestAnimationFrame(this.gameLoop);
+    }
   };
 }
