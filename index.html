@@ -8,18 +8,18 @@
     <link rel="stylesheet" href="/styles/styles.css" />
   </head>
   <body>
-    <div class="logo"><img src="/images/Full-iron-logo.png" alt="" /></div>
+    <div class="logo"><img src="/images/Full-iron-logo.png" alt="logo" /></div>
     <div class="container">
       <!-- SPLASH SCREEN -->
       <div id="splash-screen" class="container">
-        <button id="start-btn">
+        <button id="start-btn" class="borderless-btn">
           <img
             src="/images/Warrior-card.png"
             width="500px"
             alt="warrior-card"
           />
         </button>
-        <aside class="instruction-box">
+        <aside id="instruction-box" class="container">
           <br />
           You have been strandled in the middle of an unknown planet by your
           superiors to prove them your worth! <br /><br /><br />Select your
@@ -36,10 +36,14 @@
         <canvas id="my-canvas" width="1280" height="720"></canvas>
       </div>
       <!-- GAME OVER SCREEN -->
-      <div id="gameover-screen" class="container">
-        <img src="/images/gameover-screen.jpg" width="500" alt="logo" />
-        <button id="replay-btn"> <img src="/images/replay-button.png" alt=""></button>
-        <button id="home-btn"><img src="/images/home-button.png" alt=""></button>
+      <div id="gameover-screen" class="gameOverContainer">
+        <img src="/images/gameover-screen.jpg" width="700" alt="game-over-screen" />
+        <button id="replay-btn" class="borderless-btn">
+          <img src="/images/replay-button.png" width="100px" alt="replay-btn" />
+        </button>
+        <button id="home-btn" class="borderless-btn">
+          <img src="/images/home-button.png"  width= "100px" alt="home-btn" />
+        </button>
       </div>
     </div>
 
@@ -47,5 +51,6 @@
     <script src="/javascript/game.js"></script>
     <script src="/javascript/IronChampion.js"></script>
     <script src="/javascript/enemy.js"></script>
+    <script src="/javascript/bullet.js"></script>
   </body>
 </html>

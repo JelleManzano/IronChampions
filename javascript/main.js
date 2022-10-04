@@ -1,6 +1,7 @@
 //Globals
 const canvas = document.querySelector("#my-canvas");
 const startScreen = document.querySelector("#splash-screen");
+const gameOverScreen = document.querySelector("#gameover-screen")
 const startBtn1 = document.querySelector("#start-btn");
 let ctx = canvas.getContext("2d");
 let gameObJ;
@@ -20,13 +21,13 @@ startBtn1.addEventListener("click", startGame);
 
 window.addEventListener("keydown", (event) => {
   if (event.code === "KeyW") {
-      this.keyPressedW = true;
+    this.keyPressedW = true;
   } else if (event.code === "KeyD") {
-      this.keyPressedD = true;
+    this.keyPressedD = true;
   } else if (event.code === "KeyS") {
-      this.keyPressedS = true;
+    this.keyPressedS = true;
   } else if (event.code === "KeyA") {
-      this.keyPressedA = true;
+    this.keyPressedA = true;
   }
 
   if (this.keyPressedW) gameObJ.warriorObj.moveUp();
@@ -36,15 +37,14 @@ window.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("keyup", (event) => {
-  console.log(this.keyPressedW);
   if (event.code === "KeyW") {
-      this.keyPressedW = false;
+    this.keyPressedW = false;
   } else if (event.code === "KeyD") {
-      this.keyPressedD = false;
+    this.keyPressedD = false;
   } else if (event.code === "KeyS") {
-      this.keyPressedS = false;
+    this.keyPressedS = false;
   } else if (event.code === "KeyA") {
-      this.keyPressedA = false;
+    this.keyPressedA = false;
   }
-
 });
+

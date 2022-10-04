@@ -6,6 +6,7 @@ class Game {
     this.frames = 0;
     this.enemyArr = [];
     this.isGameOver = false;
+    this.bulletObj = new Bullet()
   }
 
   //Dibujar el fondo
@@ -25,7 +26,7 @@ class Game {
         this.warriorObj
       );
       this.enemyArr.push(rightEnemy);
-    } //this.frames % 180 === 0
+    } 
     if (this.frames % 240 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
@@ -33,20 +34,11 @@ class Game {
       this.enemyArr.push(leftEnemy);
     }
   };
-
-  removeEnemy = () => {
-    if (this.enemyArr[i].x < 0) {
-      this.enemyArr.shift();
-    }
-    if (this.enemyArr[i] > 1280) {
-      this.enemyArr.shift();
-    }
-    console.log("eliminado");
-  };
-
+  
+ 
   drawHP = () => {
     ctx.font = "30px Arial";
-    ctx.fillStyle = "red"
+    ctx.fillStyle = "red";
     ctx.fillText(`HP: ${this.warriorObj.hp}`, 30, 30);
   };
 
@@ -62,11 +54,23 @@ class Game {
         this.warriorObj.hp = this.warriorObj.hp - 1;
         this.enemyArr.splice(index, 1);
       }
-      if(this.warriorObj.hp === 0) {
-        this.isGameOver = true;
-      }
     });
   };
+  gameOver = () => {
+    //detener juego
+    if (this.warriorObj.hp === 0) {
+      this.isGameOver = true;
+    }
+    //ocultar canvas
+    if (this.isGameOver === true ){
+      canvas.style.display = "none";
+    }
+    //mostrar pantalla fin
+    if(this.isGameOver === true) {
+      gameOverScreen.style.display = "flex";
+    }
+  }
+
   gameLoop = () => {
     //Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -77,7 +81,7 @@ class Game {
     }
     this.addEnemy();
     this.enemyPlayerCollision();
-
+    this.gameOver()
     //Dibujado de elementos
     this.drawFondo();
     this.warriorObj.drawWarrior();
@@ -85,8 +89,9 @@ class Game {
       eachEnemy.drawEnemy();
     });
     this.drawHP();
+    this.bulletObj.drawBullet()
     //Recursion y control
-    if(this.isGameOver === false) {
+    if (this.isGameOver === false) {
       requestAnimationFrame(this.gameLoop);
     }
   };

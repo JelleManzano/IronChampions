@@ -30,7 +30,7 @@ class Enemy {
         this.x < eachEnemy.x + eachEnemy.w &&
         this.x + (this.w - 50) > eachEnemy.x &&
         this.y < eachEnemy.y + eachEnemy.h &&
-        (this.h - 80) + this.y > eachEnemy.y
+        this.h - 80 + this.y > eachEnemy.y
       ) {
         meMuevo = false;
       }
