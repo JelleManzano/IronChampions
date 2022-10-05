@@ -4,7 +4,7 @@ class OrknNurg extends Enemy {
     if (orientation === "rightOrc") {
       this.img.src = "./images/right-orc.png";
     } else if (orientation === "leftOrc") {
-      this.img.src = "/images/left-ork.png";
+      this.img.src = "./images/left-ork.png";
     } else if (orientation === "nurgling") {
       this.img.src = "./images/nurgling.png";
     }
