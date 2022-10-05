@@ -1,5 +1,5 @@
 class OrknNurg extends Enemy {
-  constructor(xParam, yParam, orientation, warriorObj, wParam, hParam) {
+  constructor(xParam, yParam, orientation, warriorObj, wParam, hParam, speed) {
     super(xParam, yParam, orientation, warriorObj);
     if (orientation === "rightOrc") {
       this.img.src = "./images/right-orc.png";
@@ -10,6 +10,6 @@ class OrknNurg extends Enemy {
     }
     this.w = wParam;
     this.h = hParam;
-    this.speed = 0.3;
+    this.speed = speed;
   }
 }
