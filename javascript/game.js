@@ -9,6 +9,8 @@ class Game {
     this.bulletArr = [];
     this.timer = 120;
     this.healArr = [];
+    this.orkArr = [];
+    this.nurglingArr = [];
   }
 
   //Dibujar el fondo
@@ -81,18 +83,22 @@ class Game {
     });
   };
 
+  //orcPlayerCollision
+  //nurglingPlayerCollision
+
   healPlayerCollision = () => {
     this.healArr.forEach((eachHeal, index) => {
       if (
         this.warriorObj.x < eachHeal.x + eachHeal.w &&
-      this.warriorObj.x + this.warriorObj.w > eachHeal.x &&
-      this.warriorObj.y < eachHeal.y + eachHeal.h &&
-      this.warriorObj.h + this.warriorObj.y > eachHeal.y) {
+        this.warriorObj.x + this.warriorObj.w > eachHeal.x &&
+        this.warriorObj.y < eachHeal.y + eachHeal.h &&
+        this.warriorObj.h + this.warriorObj.y > eachHeal.y
+      ) {
         this.warriorObj.hp += 3;
         this.healArr.splice(index, 1);
       }
-    })
-  }
+    });
+  };
 
   gameOver = () => {
     //detener juego
@@ -123,7 +129,7 @@ class Game {
     this.healPlayerCollision();
     this.gameOver();
     for (let eachHealPack of this.healArr) {
-      eachHealPack.gravityHealPack(this.healArr)
+      eachHealPack.gravityHealPack(this.healArr);
     }
 
     //Dibujado de elementos
