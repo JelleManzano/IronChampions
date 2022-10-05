@@ -38,6 +38,7 @@ restartBtn.addEventListener("click", resetGame);
 homeBtn.addEventListener("click", goHome);
 
 window.addEventListener("keydown", (event) => {
+  event.preventDefault();
   if (event.code === "KeyW") {
     this.keyPressedW = true;
   } else if (event.code === "KeyD") {
@@ -74,7 +75,6 @@ window.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("keyup", (event) => {
-  event.preventDefault();
   if (event.code === "KeyW") {
     this.keyPressedW = false;
   } else if (event.code === "KeyD") {
