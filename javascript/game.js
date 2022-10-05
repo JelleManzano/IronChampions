@@ -56,7 +56,19 @@ class Game {
       this.enemyArr.push(leftEnemy);
     }
   };
+  addNurgling = () => {
+    setInterval(() => {
+      let randomNum = Math.random() * 650;
+      let randomYint = Math.floor(randomNum);
+      let rightNurgling = new Nurgling();
+    }, 7000);
 
+    setInterval(() => {
+      let randomNum = Math.random() * 650;
+      let randomYint= Math.floor(randomNum);
+      let leftNurgling = new Nurgling();
+    });
+  };
   drawHP = () => {
     ctx.font = "30px Arial";
     ctx.fillStyle = "red";

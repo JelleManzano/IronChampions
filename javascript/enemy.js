@@ -2,9 +2,9 @@ class Enemy {
   constructor(xParam, yParam, orientation, warriorObj) {
     this.img = new Image();
     if (orientation === "left") {
-      this.img.src = "/images/enemy.png";
+      this.img.src = "./images/enemy.png";
     } else if (orientation === "right") {
-      this.img.src = "/images/flipped-enemy.png";
+      this.img.src = "./images/flipped-enemy.png";
     }
     this.orientation = orientation;
     this.x = xParam;

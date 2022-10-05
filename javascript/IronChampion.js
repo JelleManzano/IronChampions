@@ -1,7 +1,7 @@
 class Warrior {
   constructor() {
     this.img = new Image();
-    this.img.src = "/images/Warrior-Champion.png";
+    this.img.src = "./images/Warrior-Champion.png";
     this.x = 640;
     this.y = 340;
     this.w = 80;

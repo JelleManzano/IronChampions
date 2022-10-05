@@ -10,22 +10,22 @@ class Bullet {
   setOrientation = (keyPressedW, keyPressedA, keyPressedS) => {
     //Si no presionamos nada, la bala ira a la derecha por defecto
     this.orientation = "right";
-    this.img.src = "/images/bullet-right.png";
+    this.img.src = "./images/bullet-right.png";
     this.w = 50;
     this.h = 10;
     if (keyPressedA) {
       this.orientation = "left";
-      this.img.src = "/images/bullet-left.png";
+      this.img.src = "./images/bullet-left.png";
     }
     if (keyPressedW) {
       this.orientation = "up";
-      this.img.src = "/images/bullet-up.png";
+      this.img.src = "./images/bullet-up.png";
       this.w = 10;
       this.h = 50;
     }
     if (keyPressedS) {
       this.orientation = "down";
-      this.img.src = "/images/bullet-down.png";
+      this.img.src = "./images/bullet-down.png";
       this.w = 10;
       this.h = 50;
     }
