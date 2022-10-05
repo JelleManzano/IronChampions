@@ -89,4 +89,20 @@ class Bullet {
       indexEnemy++;
     }
   };
+
+  bulletNurgCollision = (bulletArr, index, nurgArr) => {
+    let indexEnemy = 0;
+    for (let eachNurg of nurgArr) {
+      if (
+        this.x < eachNurg.x + eachNurg.w &&
+        this.x + this.w > eachNurg.x &&
+        this.y < eachNurg.y + eachNurg.h &&
+        this.h + this.y > eachNurg.y
+      ) {
+        eachNurg.hp = eachNurg - 1;
+        nurgArr.splice(indexEnemy, 1);
+        bulletArr.splice(index, 1);
+      }
+    }
+  };
 }

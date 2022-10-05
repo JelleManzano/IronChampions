@@ -37,7 +37,7 @@ class Game {
   };
 
   addOrk = () => {
-    if (this.frames % 840 === 0) {
+    if (this.frames % 1320 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightOrc = new OrknNurg(
@@ -45,8 +45,8 @@ class Game {
         randomYint,
         "rightOrc",
         this.warriorObj,
-        50,
-        50
+        80,
+        80
       );
       this.orkArr.push(rightOrc);
       let leftOrc = new OrknNurg(
@@ -59,6 +59,22 @@ class Game {
       );
 
       this.orkArr.push(leftOrc);
+    }
+  };
+
+  addNurgling = () => {
+    if (this.frames % 720 === 0) {
+      let randomNum = Math.random() * 1200;
+      let randomXInt = Math.floor(randomNum);
+      let nurgling = new OrknNurg(
+        randomXInt,
+        0,
+        "nurgling",
+        this.warriorObj,
+        30,
+        30
+      );
+      this.nurglingArr.push(nurgling);
     }
   };
 
@@ -113,6 +129,17 @@ class Game {
         this.orkArr.splice(index, 1);
       }
     });
+    this.nurglingArr.forEach((eachNurg, index) => {
+      if (
+        this.warriorObj.x < eachNurg.x + eachNurg.w &&
+        this.warriorObj.x + this.warriorObj.w > eachNurg.x &&
+        this.warriorObj.y < eachNurg.y + eachNurg.h &&
+        this.warriorObj.h + this.warriorObj.y > eachNurg.y
+      ) {
+        this.timer += 15;
+        this.nurglingArr.splice(index, 1);
+      }
+    });
   };
 
   //nurglingPlayerCollision
@@ -159,7 +186,11 @@ class Game {
     for (let eachOrk of this.orkArr) {
       eachOrk.moveEnemy(this.orkArr);
     }
+    for (let eachNurg of this.nurglingArr) {
+      eachNurg.moveEnemy(this.nurglingArr);
+    }
     this.addOrk();
+    this.addNurgling();
     this.addEnemy();
     this.enemyPlayerCollision();
     this.healPlayerCollision();
@@ -177,6 +208,9 @@ class Game {
     this.orkArr.forEach((eachOrk) => {
       eachOrk.drawEnemy();
     });
+    this.nurglingArr.forEach((eachNurg) => {
+      eachNurg.drawEnemy();
+    });
     this.healArr.forEach((eachHealPack) => {
       eachHealPack.drawHeal();
     });
@@ -184,7 +218,8 @@ class Game {
     this.drawTime();
     this.bulletArr.forEach((eachBullet, index) => {
       eachBullet.bulletCollision(this.bulletArr, index, this.enemyArr);
-      eachBullet.bulletOrkCollision(this.bulletArr, index, this.orkArr)
+      eachBullet.bulletOrkCollision(this.bulletArr, index, this.orkArr);
+      eachBullet.bulletNurgCollision(this.bulletArr, index, this.nurglingArr);
       eachBullet.drawBullet();
     });
 
