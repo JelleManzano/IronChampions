@@ -21,13 +21,13 @@ class Warrior {
     }
   };
   shoot = () => {
-    const  speed = 20;
+    const speed = 20;
     const delay = 7;
     const dmg = 1;
-    let bulletX = this.x + this.w/2;
-    let bulletY = this.y + this.h/2;
-    this.bulletController.shoot(bulletX,bulletY,speed,dmg,delay)
-  }
+    let bulletX = this.x + this.w / 2;
+    let bulletY = this.y + this.h / 2;
+    this.bulletController.shoot(bulletX, bulletY, speed, dmg, delay);
+  };
   moveRight = () => {
     this.x += this.speed;
     if (this.x + this.h > canvas.width) {

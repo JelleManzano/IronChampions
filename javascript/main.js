@@ -1,10 +1,10 @@
 //Globals
 const canvas = document.querySelector("#my-canvas");
 const startScreen = document.querySelector("#splash-screen");
-const gameOverScreen = document.querySelector("#gameover-screen")
+const gameOverScreen = document.querySelector("#gameover-screen");
 const startBtn1 = document.querySelector("#start-btn");
-const restartBtn = document.querySelector("#replay-btn")
-const homeBtn = document.querySelector("#home-btn")
+const restartBtn = document.querySelector("#replay-btn");
+const homeBtn = document.querySelector("#home-btn");
 let ctx = canvas.getContext("2d");
 let gameObJ;
 
@@ -15,25 +15,27 @@ const startGame = () => {
   startScreen.style.display = "none";
   canvas.style.display = "block";
   gameObJ = new Game();
+  gameObJ.calculateTimeLeft();
+  gameObJ.addHealPack();
   gameObJ.gameLoop();
 };
 
 const resetGame = () => {
-    gameOverScreen.style.display = "none";
-    startGame();
-}
+  gameOverScreen.style.display = "none";
+  startGame();
+};
 
 const goHome = () => {
-    gameOverScreen.style.display = "none";
-    startScreen.style.display = "flex";
-}
+  gameOverScreen.style.display = "none";
+  startScreen.style.display = "flex";
+};
 
 //Event listeners
 startBtn1.addEventListener("click", startGame);
 
-restartBtn.addEventListener("click", resetGame)
+restartBtn.addEventListener("click", resetGame);
 
-homeBtn.addEventListener("click", goHome)
+homeBtn.addEventListener("click", goHome);
 
 window.addEventListener("keydown", (event) => {
   if (event.code === "KeyW") {
@@ -60,12 +62,19 @@ window.addEventListener("keydown", (event) => {
   }
   if (event.code === "Space") {
     console.log("disparando");
-   gameObJ.bulletArr.push(new Bullet(this.keyPressedW, this.keyPressedA, this.keyPressedS, gameObJ.warriorObj))
+    gameObJ.bulletArr.push(
+      new Bullet(
+        this.keyPressedW,
+        this.keyPressedA,
+        this.keyPressedS,
+        gameObJ.warriorObj
+      )
+    );
   }
 });
 
 window.addEventListener("keyup", (event) => {
-    event.preventDefault();
+  event.preventDefault();
   if (event.code === "KeyW") {
     this.keyPressedW = false;
   } else if (event.code === "KeyD") {
@@ -76,4 +85,3 @@ window.addEventListener("keyup", (event) => {
     this.keyPressedA = false;
   }
 });
-

@@ -8,6 +8,7 @@ class Game {
     this.isGameOver = false;
     this.bulletArr = [];
     this.timer = 120;
+    this.healArr = [];
   }
 
   //Dibujar el fondo
@@ -16,13 +17,21 @@ class Game {
   };
 
   calculateTimeLeft = () => {
-    if (this.frames % 60 === 0) {
-      console.log(this.timer);
+    setInterval(() => {
       this.timer -= 1;
-    }
-    if(this.timer === 0) {
-      this.isGameOver = true;
-    }
+      if (this.timer === 0) {
+        this.isGameOver = true;
+      }
+    }, 1000);
+  };
+
+  addHealPack = () => {
+    setInterval(() => {
+      let randomNum = Math.random() * 1200;
+      let randomXint = Math.floor(randomNum);
+      let newHealPack = new Healpack(randomXint);
+      this.healArr.push(newHealPack);
+    }, 20000);
   };
 
   addEnemy = () => {
@@ -37,7 +46,7 @@ class Game {
         this.warriorObj
       );
       this.enemyArr.push(rightEnemy);
-    } 
+    }
     if (this.frames % 120 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
@@ -45,8 +54,7 @@ class Game {
       this.enemyArr.push(leftEnemy);
     }
   };
-  
- 
+
   drawHP = () => {
     ctx.font = "30px Arial";
     ctx.fillStyle = "red";
@@ -56,8 +64,8 @@ class Game {
   drawTime = () => {
     ctx.font = "30px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText(`Time left : ${this.timer}`, 520, 30)
-  }
+    ctx.fillText(`Time left : ${this.timer}`, 520, 30);
+  };
 
   enemyPlayerCollision = () => {
     this.enemyArr.forEach((eachEnemy, index) => {
@@ -73,34 +81,50 @@ class Game {
     });
   };
 
+  healPlayerCollision = () => {
+    this.healArr.forEach((eachHeal, index) => {
+      if (
+        this.warriorObj.x < eachHeal.x + eachHeal.w &&
+      this.warriorObj.x + this.warriorObj.w > eachHeal.x &&
+      this.warriorObj.y < eachHeal.y + eachHeal.h &&
+      this.warriorObj.h + this.warriorObj.y > eachHeal.y) {
+        this.warriorObj.hp += 3;
+        this.healArr.splice(index, 1);
+      }
+    })
+  }
+
   gameOver = () => {
     //detener juego
     if (this.warriorObj.hp === 0) {
       this.isGameOver = true;
     }
     //ocultar canvas
-    if (this.isGameOver === true ){
+    if (this.isGameOver === true) {
       canvas.style.display = "none";
     }
     //mostrar pantalla fin
-    if(this.isGameOver === true) {
+    if (this.isGameOver === true) {
       gameOverScreen.style.display = "flex";
     }
-  }
+  };
 
   gameLoop = () => {
     //Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     //Acciones y movimientos
-    this.calculateTimeLeft();
+
     for (let eachEnemy of this.enemyArr) {
       eachEnemy.moveEnemy(this.enemyArr);
     }
     this.addEnemy();
     this.enemyPlayerCollision();
-
+    this.healPlayerCollision();
     this.gameOver();
+    for (let eachHealPack of this.healArr) {
+      eachHealPack.gravityHealPack(this.healArr)
+    }
 
     //Dibujado de elementos
     this.drawFondo();
@@ -108,12 +132,16 @@ class Game {
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.drawEnemy();
     });
+    this.healArr.forEach((eachHealPack) => {
+      eachHealPack.drawHeal();
+    });
     this.drawHP();
-    this.drawTime()
+    this.drawTime();
     this.bulletArr.forEach((eachBullet, index) => {
       eachBullet.bulletCollision(this.bulletArr, index, this.enemyArr);
       eachBullet.drawBullet();
     });
+
     //Recursion y control
     if (this.isGameOver === false) {
       requestAnimationFrame(this.gameLoop);
