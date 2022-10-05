@@ -1,7 +1,7 @@
 class Game {
   constructor() {
     this.fondo = new Image();
-    this.fondo.src = "/images/mars.png";
+    this.fondo.src = "./images/mars.png";
     this.warriorObj = new Warrior();
     this.frames = 0;
     this.enemyArr = [];

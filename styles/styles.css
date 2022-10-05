@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  background: url("/images/web-space-background.png");
+  background: url("./images/web-space-background.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
