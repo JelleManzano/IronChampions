@@ -36,8 +36,33 @@ class Game {
     }, 20000);
   };
 
+  addOrk = () => {
+    if (this.frames % 840 === 0) {
+      let randomNum = Math.random() * 650;
+      let randomYint = Math.floor(randomNum);
+      let rightOrc = new OrknNurg(
+        canvas.width,
+        randomYint,
+        "rightOrc",
+        this.warriorObj,
+        50,
+        50
+      );
+      this.orkArr.push(rightOrc);
+      let leftOrc = new OrknNurg(
+        0,
+        randomYint,
+        "leftOrc",
+        this.warriorObj,
+        50,
+        50
+      );
+
+      this.orkArr.push(leftOrc);
+    }
+  };
+
   addEnemy = () => {
-    this.frames++;
     if (this.frames % 120 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
@@ -48,27 +73,11 @@ class Game {
         this.warriorObj
       );
       this.enemyArr.push(rightEnemy);
-    }
-    if (this.frames % 120 === 0) {
-      let randomNum = Math.random() * 650;
-      let randomYint = Math.floor(randomNum);
       let leftEnemy = new Enemy(0, randomYint, "left", this.warriorObj);
       this.enemyArr.push(leftEnemy);
     }
   };
-  addNurgling = () => {
-    setInterval(() => {
-      let randomNum = Math.random() * 650;
-      let randomYint = Math.floor(randomNum);
-      let rightNurgling = new Nurgling();
-    }, 7000);
 
-    setInterval(() => {
-      let randomNum = Math.random() * 650;
-      let randomYint= Math.floor(randomNum);
-      let leftNurgling = new Nurgling();
-    });
-  };
   drawHP = () => {
     ctx.font = "30px Arial";
     ctx.fillStyle = "red";
@@ -93,9 +102,19 @@ class Game {
         this.enemyArr.splice(index, 1);
       }
     });
+    this.orkArr.forEach((eachOrk, index) => {
+      if (
+        this.warriorObj.x < eachOrk.x + eachOrk.w &&
+        this.warriorObj.x + this.warriorObj.w > eachOrk.x &&
+        this.warriorObj.y < eachOrk.y + eachOrk.h &&
+        this.warriorObj.h + this.warriorObj.y > eachOrk.y
+      ) {
+        this.warriorObj.hp = this.warriorObj.hp - 5;
+        this.orkArr.splice(index, 1);
+      }
+    });
   };
 
-  //orcPlayerCollision
   //nurglingPlayerCollision
 
   healPlayerCollision = () => {
@@ -128,6 +147,7 @@ class Game {
   };
 
   gameLoop = () => {
+    this.frames++;
     //Limpiar el canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -136,6 +156,10 @@ class Game {
     for (let eachEnemy of this.enemyArr) {
       eachEnemy.moveEnemy(this.enemyArr);
     }
+    for (let eachOrk of this.orkArr) {
+      eachOrk.moveEnemy(this.orkArr);
+    }
+    this.addOrk();
     this.addEnemy();
     this.enemyPlayerCollision();
     this.healPlayerCollision();
@@ -150,6 +174,9 @@ class Game {
     this.enemyArr.forEach((eachEnemy) => {
       eachEnemy.drawEnemy();
     });
+    this.orkArr.forEach((eachOrk) => {
+      eachOrk.drawEnemy();
+    });
     this.healArr.forEach((eachHealPack) => {
       eachHealPack.drawHeal();
     });
@@ -157,6 +184,7 @@ class Game {
     this.drawTime();
     this.bulletArr.forEach((eachBullet, index) => {
       eachBullet.bulletCollision(this.bulletArr, index, this.enemyArr);
+      eachBullet.bulletOrkCollision(this.bulletArr, index, this.orkArr)
       eachBullet.drawBullet();
     });
 

@@ -62,7 +62,6 @@ window.addEventListener("keydown", (event) => {
     gameObJ.warriorObj.moveLeft();
   }
   if (event.code === "Space") {
-    console.log("disparando");
     gameObJ.bulletArr.push(
       new Bullet(
         this.keyPressedW,

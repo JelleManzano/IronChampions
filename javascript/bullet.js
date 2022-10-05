@@ -72,4 +72,21 @@ class Bullet {
       indexEnemy++;
     }
   };
+
+  bulletOrkCollision = (bulletArr, index, orkArr) => {
+    let indexEnemy = 0;
+    for (let eachOrk of orkArr) {
+      if (
+        this.x < eachOrk.x + eachOrk.w &&
+        this.x + this.w > eachOrk.x &&
+        this.y < eachOrk.y + eachOrk.h &&
+        this.h + this.y > eachOrk.y
+      ) {
+        eachOrk.hp = eachOrk.hp - 1;
+        orkArr.splice(indexEnemy, 1);
+        bulletArr.splice(index, 1);
+      }
+      indexEnemy++;
+    }
+  };
 }
