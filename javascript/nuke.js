@@ -1,7 +1,7 @@
 class Nuke {
   constructor(xParam) {
     this.img = new Image();
-    this.img.src = "/images/nuke.png";
+    this.img.src = "./images/nuke.png";
     this.x = xParam;
     this.y = 1;
     this.w = 30;

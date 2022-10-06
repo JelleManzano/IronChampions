@@ -6,8 +6,8 @@ class Warrior {
     this.y = 340;
     this.w = 80;
     this.h = 80;
-    this.speed = 15;
-    this.hp = 20;
+    this.speed = 20;
+    this.hp = 15;
   }
 
   drawWarrior = () => {

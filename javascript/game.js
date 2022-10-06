@@ -15,7 +15,6 @@ class Game {
     this.music = new Audio("./music/doom-music.mp3");
   }
 
-  //Dibujar el fondo
   drawFondo = () => {
     ctx.drawImage(this.fondo, 0, 0, canvas.width, canvas.height);
   };
@@ -48,7 +47,7 @@ class Game {
   };
 
   addOrk = () => {
-    if (this.frames % 900 === 0) {
+    if (this.frames % 840=== 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightOrc = new OrknNurg(
@@ -58,7 +57,8 @@ class Game {
         this.warriorObj,
         80,
         80,
-        0.3
+        0.5,
+        4
       );
       this.orkArr.push(rightOrc);
       let leftOrc = new OrknNurg(
@@ -68,7 +68,8 @@ class Game {
         this.warriorObj,
         80,
         80,
-        0.3
+        0.5,
+        4
       );
 
       this.orkArr.push(leftOrc);
@@ -76,7 +77,7 @@ class Game {
   };
 
   addNurgling = () => {
-    if (this.frames % 1580 === 0) {
+    if (this.frames % 1580 === 0) {  //1580 frames
       let randomNum = Math.random() * 1200;
       let randomXInt = Math.floor(randomNum);
       let nurgling = new OrknNurg(
@@ -86,14 +87,15 @@ class Game {
         this.warriorObj,
         50,
         50,
-        1.2
+        1,
+        1
       );
       this.nurglingArr.push(nurgling);
     }
   };
 
   addEnemy = () => {
-    if (this.frames % 180 === 0) {
+    if (this.frames % 120 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightEnemy = new Enemy(
@@ -103,7 +105,9 @@ class Game {
         this.warriorObj
       );
       this.enemyArr.push(rightEnemy);
+      this.enemyArr.push(rightEnemy);
       let leftEnemy = new Enemy(0, randomYint, "left", this.warriorObj);
+      this.enemyArr.push(leftEnemy);
       this.enemyArr.push(leftEnemy);
     }
   };
@@ -150,7 +154,7 @@ class Game {
         this.warriorObj.y < eachNurg.y + eachNurg.h &&
         this.warriorObj.h + this.warriorObj.y > eachNurg.y
       ) {
-        this.timer += 15;
+        this.timer += 10;
         this.nurglingArr.splice(index, 1);
       }
     });
@@ -164,7 +168,7 @@ class Game {
         this.warriorObj.y < eachHeal.y + eachHeal.h &&
         this.warriorObj.h + this.warriorObj.y > eachHeal.y
       ) {
-        this.warriorObj.hp += 3;
+        this.warriorObj.hp += 5;
         this.healArr.splice(index, 1);
       }
     });
@@ -187,14 +191,14 @@ class Game {
   };
 
   musicIsOn = () => {
-    this.music.volume = 0.1
+    this.music.volume = 0.1;
     if (this.isGameOver === false) {
       this.music.play();
     }
     if (this.isGameOver === true) {
-      this.music.pause()
+      this.music.pause();
     }
-  }
+  };
 
   gameOver = () => {
     //detener juego

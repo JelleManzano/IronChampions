@@ -66,7 +66,9 @@ class Bullet {
         this.h + this.y > eachEnemy.y
       ) {
         eachEnemy.hp = eachEnemy.hp - 1;
-        enemyArr.splice(indexEnemy, 1);
+        if(eachEnemy.hp <= 0) {
+          enemyArr.splice(indexEnemy, 1);
+        }
         bulletArr.splice(index, 1);
       }
       indexEnemy++;
@@ -83,7 +85,9 @@ class Bullet {
         this.h + this.y > eachOrk.y
       ) {
         eachOrk.hp = eachOrk.hp - 1;
-        orkArr.splice(indexEnemy, 1);
+        if(eachOrk.hp <= 0) {
+          orkArr.splice(indexEnemy, 1);
+        }
         bulletArr.splice(index, 1);
       }
       indexEnemy++;
@@ -99,8 +103,10 @@ class Bullet {
         this.y < eachNurg.y + eachNurg.h &&
         this.h + this.y > eachNurg.y
       ) {
-        eachNurg.hp = eachNurg - 1;
-        nurgArr.splice(indexEnemy, 1);
+        eachNurg.hp = eachNurg.hp - 1;
+        if(eachNurg.hp <= 0) {
+          nurgArr.splice(indexEnemy, 1);
+        }
         bulletArr.splice(index, 1);
       }
     }
