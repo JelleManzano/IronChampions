@@ -11,6 +11,7 @@ class Game {
     this.healArr = [];
     this.orkArr = [];
     this.nurglingArr = [];
+    this.nukeArr = [];
   }
 
   //Dibujar el fondo
@@ -34,6 +35,15 @@ class Game {
       let newHealPack = new Healpack(randomXint);
       this.healArr.push(newHealPack);
     }, 20000);
+  };
+
+  addNuke = () => {
+    setInterval(() => {
+      let randomNum = Math.random() * 1200;
+      let randomXint = Math.floor(randomNum);
+      let newNuke = new Nuke(randomXint);
+      this.nukeArr.push(newNuke);
+    }, 3000);
   };
 
   addOrk = () => {
@@ -73,9 +83,9 @@ class Game {
         0,
         "nurgling",
         this.warriorObj,
-        40,
-        40,
-        1
+        50,
+        50,
+        1.2
       );
       this.nurglingArr.push(nurgling);
     }
@@ -145,8 +155,6 @@ class Game {
     });
   };
 
-  //nurglingPlayerCollision
-
   healPlayerCollision = () => {
     this.healArr.forEach((eachHeal, index) => {
       if (
@@ -161,9 +169,25 @@ class Game {
     });
   };
 
+  nukePlayerCollision = () => {
+    this.nukeArr.forEach((eachNuke, index) => {
+      if (
+        this.warriorObj.x < eachNuke.x + eachNuke.w &&
+        this.warriorObj.x + this.warriorObj.w > eachNuke.x &&
+        this.warriorObj.y < eachNuke.y + eachNuke.h &&
+        this.warriorObj.h + this.warriorObj.y > eachNuke.y
+      ) {
+        this.enemyArr = [];
+        this.orkArr = [];
+        this.nurglingArr = [];
+        this.nukeArr.splice(index, 1);
+      }
+    });
+  };
+
   gameOver = () => {
     //detener juego
-    if (this.warriorObj.hp === 0) {
+    if (this.warriorObj.hp <= 0) {
       this.isGameOver = true;
     }
     //ocultar canvas
@@ -197,9 +221,13 @@ class Game {
     this.addEnemy();
     this.enemyPlayerCollision();
     this.healPlayerCollision();
+    this.nukePlayerCollision();
     this.gameOver();
     for (let eachHealPack of this.healArr) {
       eachHealPack.gravityHealPack(this.healArr);
+    }
+    for (let eachNuke of this.nukeArr) {
+      eachNuke.gravityNuke(this.nukeArr);
     }
 
     //Dibujado de elementos
@@ -216,6 +244,9 @@ class Game {
     });
     this.healArr.forEach((eachHealPack) => {
       eachHealPack.drawHeal();
+    });
+    this.nukeArr.forEach((eachNuke) => {
+      eachNuke.drawNuke();
     });
     this.drawHP();
     this.drawTime();

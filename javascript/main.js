@@ -17,6 +17,7 @@ const startGame = () => {
   gameObJ = new Game();
   gameObJ.calculateTimeLeft();
   gameObJ.addHealPack();
+  gameObJ.addNuke();
   gameObJ.gameLoop();
 };
 
