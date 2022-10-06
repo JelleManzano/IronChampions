@@ -5,6 +5,7 @@ const gameOverScreen = document.querySelector("#gameover-screen");
 const startBtn1 = document.querySelector("#start-btn");
 const restartBtn = document.querySelector("#replay-btn");
 const homeBtn = document.querySelector("#home-btn");
+
 let ctx = canvas.getContext("2d");
 let gameObJ;
 

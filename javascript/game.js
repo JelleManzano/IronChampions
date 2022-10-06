@@ -12,6 +12,7 @@ class Game {
     this.orkArr = [];
     this.nurglingArr = [];
     this.nukeArr = [];
+    this.music = new Audio("./music/doom-music.mp3");
   }
 
   //Dibujar el fondo
@@ -43,11 +44,11 @@ class Game {
       let randomXint = Math.floor(randomNum);
       let newNuke = new Nuke(randomXint);
       this.nukeArr.push(newNuke);
-    }, 3000);
+    }, 30000);
   };
 
   addOrk = () => {
-    if (this.frames % 960 === 0) {
+    if (this.frames % 900 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightOrc = new OrknNurg(
@@ -92,7 +93,7 @@ class Game {
   };
 
   addEnemy = () => {
-    if (this.frames % 240 === 0) {
+    if (this.frames % 180 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightEnemy = new Enemy(
@@ -185,6 +186,16 @@ class Game {
     });
   };
 
+  musicIsOn = () => {
+    this.music.volume = 0.1
+    if (this.isGameOver === false) {
+      this.music.play();
+    }
+    if (this.isGameOver === true) {
+      this.music.pause()
+    }
+  }
+
   gameOver = () => {
     //detener juego
     if (this.warriorObj.hp <= 0) {
@@ -229,7 +240,7 @@ class Game {
     for (let eachNuke of this.nukeArr) {
       eachNuke.gravityNuke(this.nukeArr);
     }
-
+    this.musicIsOn();
     //Dibujado de elementos
     this.drawFondo();
     this.warriorObj.drawWarrior();
