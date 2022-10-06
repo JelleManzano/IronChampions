@@ -143,7 +143,7 @@ class Game {
         this.warriorObj.y < eachOrk.y + eachOrk.h &&
         this.warriorObj.h + this.warriorObj.y > eachOrk.y
       ) {
-        this.warriorObj.hp = this.warriorObj.hp - 5;
+        this.warriorObj.hp = this.warriorObj.hp - 3;
         this.orkArr.splice(index, 1);
       }
     });
