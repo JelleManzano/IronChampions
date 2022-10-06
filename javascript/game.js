@@ -15,10 +15,12 @@ class Game {
     this.music = new Audio("./music/doom-music.mp3");
   }
 
+  //Dibujado del fondo
   drawFondo = () => {
     ctx.drawImage(this.fondo, 0, 0, canvas.width, canvas.height);
   };
 
+  //Intervalo en main para calcular el tiempo en milisengudos hacia atrás
   calculateTimeLeft = () => {
     setInterval(() => {
       this.timer -= 1;
@@ -28,6 +30,7 @@ class Game {
     }, 1000);
   };
 
+  //Añadido del healpack con un X random en un array
   addHealPack = () => {
     setInterval(() => {
       let randomNum = Math.random() * 1200;
@@ -37,6 +40,7 @@ class Game {
     }, 20000);
   };
 
+  //Añadido del nuke con un X random en un array
   addNuke = () => {
     setInterval(() => {
       let randomNum = Math.random() * 1200;
@@ -46,6 +50,24 @@ class Game {
     }, 30000);
   };
 
+  //Dibujado de los enemigos normales en una Y random, cambiando su orientación para el dibujo y pasandole el warrior para su posición..
+  addEnemy = () => {
+    if (this.frames % 100 === 0) {
+      let randomNum = Math.random() * 650;
+      let randomYint = Math.floor(randomNum);
+      let rightEnemy = new Enemy(
+        canvas.width,
+        randomYint,
+        "right",
+        this.warriorObj
+      );
+      this.enemyArr.push(rightEnemy);
+      let leftEnemy = new Enemy(0, randomYint, "left", this.warriorObj);
+      this.enemyArr.push(leftEnemy);
+    }
+  };
+
+  //Añadido de los orkos, con una Y random, con distintas propiedades para su dibujado aparte de generación en el array. Clase que hereda de enemy
   addOrk = () => {
     if (this.frames % 840 === 0) {
       let randomNum = Math.random() * 650;
@@ -76,6 +98,7 @@ class Game {
     }
   };
 
+  //Igual que los orkos. Clase que hereda de Enemy
   addNurgling = () => {
     if (this.frames % 1580 === 0) {
       //1580 frames
@@ -95,35 +118,21 @@ class Game {
     }
   };
 
-  addEnemy = () => {
-    if (this.frames % 100 === 0) {
-      let randomNum = Math.random() * 650;
-      let randomYint = Math.floor(randomNum);
-      let rightEnemy = new Enemy(
-        canvas.width,
-        randomYint,
-        "right",
-        this.warriorObj
-      );
-      this.enemyArr.push(rightEnemy);
-      let leftEnemy = new Enemy(0, randomYint, "left", this.warriorObj);
-      this.enemyArr.push(leftEnemy);
-      
-    }
-  };
-
+  //Dibujado de la vida en una esquina en el canvas
   drawHP = () => {
     ctx.font = "30px Arial";
     ctx.fillStyle = "red";
     ctx.fillText(`HP: ${this.warriorObj.hp}`, 30, 30);
   };
 
+  //Dibujado del tiempo en el centro de la pantalla del canvas
   drawTime = () => {
     ctx.font = "30px Arial";
     ctx.fillStyle = "black";
     ctx.fillText(`Time left : ${this.timer}`, 520, 30);
   };
 
+  //Colisión de los enemigos con el warrior, eliminación de los mismos al choque del array y cambio de la HP del warrior
   enemyPlayerCollision = () => {
     this.enemyArr.forEach((eachEnemy, index) => {
       if (
@@ -160,6 +169,7 @@ class Game {
     });
   };
 
+  //Colisión del healpack y el warrior y sumado de vida, eliminación del healpack del array y de la pantalla si sobrepasa el límite
   healPlayerCollision = () => {
     this.healArr.forEach((eachHeal, index) => {
       if (
@@ -171,9 +181,13 @@ class Game {
         this.warriorObj.hp += 5;
         this.healArr.splice(index, 1);
       }
+      if (this.healArr[index] > canvas.height) {
+        this.healArr.splice(index, 1);
+      }
     });
   };
 
+  //Colisión del nuke con el warrior, vaciado de los arrays de enemigos para limpiarlos del canvas mas eliminación al sobrepasar límites
   nukePlayerCollision = () => {
     this.nukeArr.forEach((eachNuke, index) => {
       if (
@@ -187,9 +201,13 @@ class Game {
         this.nurglingArr = [];
         this.nukeArr.splice(index, 1);
       }
+      if (this.nukeArr[index] > canvas.height) {
+        this.nukeArr.splice(index, 1);
+      }
     });
   };
 
+  //Funcion para la música teniendo en cuenta si el juego está terminado o no, regulación del volumen
   musicIsOn = () => {
     this.music.volume = 0.1;
     if (this.isGameOver === false) {
@@ -200,6 +218,7 @@ class Game {
     }
   };
 
+  //Comprobación del fin del juego si la HP llega a 0, en el timer esta incluida esta funcion en un callback.
   gameOver = () => {
     //detener juego
     if (this.warriorObj.hp <= 0) {
@@ -215,6 +234,7 @@ class Game {
     }
   };
 
+  //Bucle principal del juego en reproducción constante hasta el controlador de isGameOver
   gameLoop = () => {
     this.frames++;
     //Limpiar el canvas

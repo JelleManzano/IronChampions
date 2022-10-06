@@ -6,7 +6,7 @@ class Bullet {
     this.speed = 15;
     this.setOrientation(keyPressedW, keyPressedA, keyPressedS);
   }
-
+  //*Orientación de las balas para poder usar imagenes ajustadas a la dirección a la que se mira, usando los parámetros de las variables flag de Main
   setOrientation = (keyPressedW, keyPressedA, keyPressedS) => {
     //Si no presionamos nada, la bala ira a la derecha por defecto
     this.orientation = "right";
@@ -31,6 +31,7 @@ class Bullet {
     }
   };
 
+  //* Dibujado y movimiento de la balas en una misma función para moverse respecto al eje donde deben aparecer y su dirección
   drawBullet = () => {
     if (this.orientation == "right") {
       this.x += this.speed;
@@ -48,6 +49,7 @@ class Bullet {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   };
 
+  //*Colisión de las balas con lso enemigos, restando su hp y eliminandolos de su array, y eliminando a la propia bala al chocar con los muros del canvas o un enemigo
   bulletCollision = (bulletArr, index, enemyArr) => {
     if (
       this.x > canvas.width ||
@@ -66,7 +68,7 @@ class Bullet {
         this.h + this.y > eachEnemy.y
       ) {
         eachEnemy.hp = eachEnemy.hp - 1;
-        if(eachEnemy.hp <= 0) {
+        if (eachEnemy.hp <= 0) {
           enemyArr.splice(indexEnemy, 1);
         }
         bulletArr.splice(index, 1);
@@ -85,7 +87,7 @@ class Bullet {
         this.h + this.y > eachOrk.y
       ) {
         eachOrk.hp = eachOrk.hp - 1;
-        if(eachOrk.hp <= 0) {
+        if (eachOrk.hp <= 0) {
           orkArr.splice(indexEnemy, 1);
         }
         bulletArr.splice(index, 1);
@@ -104,7 +106,7 @@ class Bullet {
         this.h + this.y > eachNurg.y
       ) {
         eachNurg.hp = eachNurg.hp - 1;
-        if(eachNurg.hp <= 0) {
+        if (eachNurg.hp <= 0) {
           nurgArr.splice(indexEnemy, 1);
         }
         bulletArr.splice(index, 1);

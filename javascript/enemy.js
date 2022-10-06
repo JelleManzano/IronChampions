@@ -1,6 +1,7 @@
 class Enemy {
   constructor(xParam, yParam, orientation, warriorObj) {
     this.img = new Image();
+    //Se pasan orientaciones para especificar que imagen queremos usar cuando salgan de un lado u otro.
     if (orientation === "left") {
       this.img.src = "./images/enemy.png";
     } else if (orientation === "right") {
@@ -16,10 +17,12 @@ class Enemy {
     this.warriorPos = warriorObj;
   }
 
+  //Dibujado del enemigo
   drawEnemy = () => {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   };
 
+  //Movimiento del enemigo teniendo en cuenta las posiciones entre ellos mismos primeros para evitar solapamientos y después con el player para avanzar hacia el mismo
   moveEnemy = (enemyArr) => {
     let meMuevo = true;
     for (let eachEnemy of enemyArr) {

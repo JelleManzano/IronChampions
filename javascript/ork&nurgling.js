@@ -9,7 +9,7 @@ class OrknNurg extends Enemy {
     speed,
     hp
   ) {
-    super(xParam, yParam, orientation, warriorObj);
+    super(xParam, yParam, orientation, warriorObj); //Necesario para heredar los parámetros del padre, por el constructor hay que pasar en mismo  orden los parámetros que hereda y luego los nuevos
     if (orientation === "rightOrc") {
       this.img.src = "./images/right-orc.png";
     } else if (orientation === "leftOrc") {

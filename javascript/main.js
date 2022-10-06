@@ -21,24 +21,26 @@ const startGame = () => {
   gameObJ.addNuke();
   gameObJ.gameLoop();
 };
-
+//*Reseteado del juego
 const resetGame = () => {
   gameOverScreen.style.display = "none";
   startGame();
 };
-
+//*Vuelta a la pantalla inicial
 const goHome = () => {
   gameOverScreen.style.display = "none";
   startScreen.style.display = "flex";
 };
 
-//Event listeners
+//*Event listeners para iniciar, reiniciar o volver a home
 startBtn1.addEventListener("click", startGame);
 
 restartBtn.addEventListener("click", resetGame);
 
 homeBtn.addEventListener("click", goHome);
 
+//* Eventos para el movimiento, con variables flag para poder moverse en diagonal permaneciendo true si sigue pulsada para evitar que solo tome la ultima tecla pulsada como referencia
+//* Disparo e invocación de las balas
 window.addEventListener("keydown", (event) => {
   event.preventDefault();
   if (event.code === "KeyW") {
