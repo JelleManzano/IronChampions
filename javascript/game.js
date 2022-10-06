@@ -47,7 +47,7 @@ class Game {
   };
 
   addOrk = () => {
-    if (this.frames % 840=== 0) {
+    if (this.frames % 840 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightOrc = new OrknNurg(
@@ -77,7 +77,8 @@ class Game {
   };
 
   addNurgling = () => {
-    if (this.frames % 1580 === 0) {  //1580 frames
+    if (this.frames % 1580 === 0) {
+      //1580 frames
       let randomNum = Math.random() * 1200;
       let randomXInt = Math.floor(randomNum);
       let nurgling = new OrknNurg(
@@ -95,7 +96,7 @@ class Game {
   };
 
   addEnemy = () => {
-    if (this.frames % 120 === 0) {
+    if (this.frames % 100 === 0) {
       let randomNum = Math.random() * 650;
       let randomYint = Math.floor(randomNum);
       let rightEnemy = new Enemy(
@@ -105,10 +106,9 @@ class Game {
         this.warriorObj
       );
       this.enemyArr.push(rightEnemy);
-      this.enemyArr.push(rightEnemy);
       let leftEnemy = new Enemy(0, randomYint, "left", this.warriorObj);
       this.enemyArr.push(leftEnemy);
-      this.enemyArr.push(leftEnemy);
+      
     }
   };
 
@@ -143,7 +143,7 @@ class Game {
         this.warriorObj.y < eachOrk.y + eachOrk.h &&
         this.warriorObj.h + this.warriorObj.y > eachOrk.y
       ) {
-        this.warriorObj.hp = this.warriorObj.hp - 3;
+        this.warriorObj.hp = this.warriorObj.hp - 5;
         this.orkArr.splice(index, 1);
       }
     });

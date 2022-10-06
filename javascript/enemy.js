@@ -11,7 +11,7 @@ class Enemy {
     this.y = yParam;
     this.w = 70;
     this.h = 70;
-    this.speed = 0.7;
+    this.speed = 0.6;
     this.hp = 2;
     this.warriorPos = warriorObj;
   }
@@ -28,9 +28,9 @@ class Enemy {
       }
       if (
         this.x < eachEnemy.x + eachEnemy.w &&
-        this.x + (this.w - 50) > eachEnemy.x &&
+        this.x + (this.w - 20) > eachEnemy.x &&
         this.y < eachEnemy.y + eachEnemy.h &&
-        this.h - 80 + this.y > eachEnemy.y
+        this.h - 70 + this.y > eachEnemy.y
       ) {
         meMuevo = false;
       }
