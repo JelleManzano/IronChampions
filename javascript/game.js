@@ -209,7 +209,7 @@ class Game {
 
   //Funcion para la música teniendo en cuenta si el juego está terminado o no, regulación del volumen
   musicIsOn = () => {
-    this.music.volume = 0.1;
+    this.music.volume = 0.05;
     if (this.isGameOver === false) {
       this.music.play();
     }
