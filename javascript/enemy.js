@@ -10,8 +10,8 @@ class Enemy {
     this.orientation = orientation;
     this.x = xParam;
     this.y = yParam;
-    this.w = 70;
-    this.h = 70;
+    this.w = 60;
+    this.h = 60;
     this.speed = 0.6;
     this.hp = 2;
     this.warriorPos = warriorObj;
