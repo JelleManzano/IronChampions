@@ -3,38 +3,33 @@ NOTE: to copy this readme structure simply click on RAW on the top right of this
 # NAME OF YOUR PROYECT
  
  
-## [See the Game](www.your-url-here.com)
+## [See the Game](https://jellemanzano.github.io/IronChampions/)
 NOTE: above link will be added later
  
 # Description
  
-You have to survive 2 minutes dodging enemies that spawn from both sides of the screen. You have 10 hp, each collision takes 1 hp. (Later you can dmg enemies and they will track you)
- 
+You have to survive 2 minutes dodging enemies that spawn from both sides of the screen. You have 15 hp, each enemy has a different damage output, regular enemies (the "crows") deal 1 damage, orks deal 5 and nurglings add 10 seconds to your timer. You can pick up healthpacks to gain 5 HP and grab nukes to clean the screen off enemies.
+
 # Main Functionalities
- 
-- List here the main functionalities your game will have
 - Startscreen with a Play! Button, based on the hero card
-- Screen where you can select a hero (stage 1 all 3 clicable slides will be the same hero) and start the game
-- Be able to move around the map with WASD or arrow keys (later when you can attack, spacebar = attack)
-- Enemies should spawn randomnly from both sides of the screen and go to the other end.
-- Player always spawn in the center, set speed, hp and can move around the map.
-- Set a numeric HP:Number under player
-- Add a timedown counter startgin at 02:00 minutes going back to 0.
-- If your HP reaches 0 GameOver === True => Game over Screen
-- If you survive the 02:00 minutes GameOver ===False => Congratulations screen
-- Both game over and congratulations screen should have a replay button.
+- Screen where you can select a hero and start the game
+- Be able to move around the map with WASD and attack with spacebar
+- Enemies spawn randomnly from both sides of the screen and  the top.
+- Enemies track down the player position.
+- Timer from 120 seconds to 0 to beat the game.
+- Player always spawn in the center, set speed, hp and can move around the map in the 4 axis and also diagonally.
+- If your HP reaches 0 is game over.
+- Game over screen has a replay and a home button.
+- Collisions between the player and the enemies or the health packs/nukes.
+- Shooting while holding the space bar, bullets deal damage to clear enemies from the screen and depending in which axis you shoot it appears differently.
  
  
 # Backlog Functionalities
- 
-- List here the cool (but not essential) functionalities your game could have
-- Convert the game where enemies also have health, and instead of spawning randomly going from one direction to the other they track you down.
-- Be able to attack the enemies (Normal enemies require 1 hit to die, elite enemies need 2, also elite enemies are faster)
-- Change the numeric value for the HP to a HP red bar that goes down ever hit you take.
-- Add 1 or 2 more heroes with different abilities and stats(for example a mage that instead of melee attacking shoots a snowflake, a barbarian which is faster and deals more dmg that the regular warrior but has less hp)
-- Play a dying player sound when hp reaches 0 and gameover screen starts.
-- Play a cheerful music when surviving the waves.
-- Play music with a button that mutes it or unmutes it
+
+- Music plays while the game is on.
+- Health packs and nukes.
+- Different enemies
+- Movement of the enemies improved to track the player.
  
 # Proyect Structure
  
@@ -46,62 +41,74 @@ Example:
  
 ### main.js
  
-```
-- startGame()
-```
+- ```startGame() {}```
+- ```resetGame() {}```
+- ``` goHome() {} ```
+ - ``` addEventListeners with clicks for those above ```
+ - ``` addEventListeners for the movement and shooting ```
+
+ ### game.js
+- ``` class Game{} ```
+- ``` drawFondo(){} ```
+- ``` calculateTimeLeft(){} ```
+- ``` addHealPack(){} ```
+- ``` addNuke(){} ```
+- ``` addEnemy(){} ```
+- ``` addOrk(){} ```
+- ``` addNurgling(){} ```
+- ``` drawHP(){} ```
+- ``` drawTime(){} ```
+- ``` enemyPlayerCollision(){} ```
+- ``` healPlayerCollision(){} ```
+- ``` nukePlayerCollision(){} ```
+- ``` musicIsOn(){} ```
+- ``` gameOver(){} ```
+- ``` gameLoop(){} ```
+
  
-### game.js
+### IronChampion.js
  
-- ```Game () { this.player; }```
-- ```gameLoop () {}```
-- ```checkCollisions () {}```
+- ``` class Warrior {} ```
+- ``` drawWarrior(){} ```
+- ``` moveLeft(){} ```
+- ``` moveRight(){} ```
+- ``` moveUp(){} ```
+- ``` moveDown(){} ```
  
-### player.js 
- 
-- 
-``` 
-Player () {
-    this.x;
-    this.y;
-    this.w;
-    this.h;
-    this.hp;
-    this.speed;
-}
-```
-- ```drawPlayer () {}```
-- ```movePlayer () {}```
- 
-### enemies.js
--
-```
-Enemy () {
-    this.x;
-    this.y;
-    this.w;
-    this.h;
-}
-```
-- ```spawnEnemy()```
-- ```enemyMovement()```
+### enemy.js
+- ``` class Enemy {} ```
+- ``` drawEnemy(){}```
+- ``` moveEnemy(){}```
+
+### ork&nuurgling.js
+- ``` class OrknNurg extends Enemy ```
+
+### healpack.js
+- ``` class Healpack {}```
+- ``` drawHeal(){} ```
+- ``` gravityHealPack(){} ```
+
+### nuke.js
+- ``` class Nuke{} ```
+- ``` drawNuke(){} ```
+- ``` gravityNuke(){} ```
+
+### bullet.js
+- ``` class Bullet{} ```
+- ``` setOrientation(){} ```
+- ``` drawBullet(){} ```
+- ``` bulletCollision(){} ```
+- ``` bulletOrkCollision(){} ```
+- ``` bulletNurgCollision(){} ```
+
+
+
  
 # States and Transitions
  
-- List here the different pages your game will have. For example: Start Screen, Game Screen, Win Screen, etc.
--Startscreen, either separate from the hero selector, or clicking on one of the hero portraits on the start screen initiates the game
+- Game Start screen
 - Game screen
 - Game Over screen
-- Game Won screen
- 
-# Tasks (Optional)
- 
-- List of individual Tasks you will need to finish the game from zero to an amazing game!
-- Note: If using Trello or github proyect to keep track of tasks, then you can remove this section.
- 
-# Extra Links (The links can be added later when available)
- 
-### Trello
-[Link](https://trello.com/w/ironchampionproject/home)
  
 ### Slides
 [Link](www.your-url-here.com)
